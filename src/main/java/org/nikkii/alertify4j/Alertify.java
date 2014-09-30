@@ -123,7 +123,7 @@ public class Alertify {
 			int baseY = screen.height;
 
 			for (AlertifyWindow window : windows) {
-				baseY -= window.getHeight() + 10;
+				baseY -= window.getActualHeight() + 10;
 			}
 
 			if (baseY < 0) {
@@ -269,7 +269,7 @@ public class Alertify {
 
 		int newY = screen.height;
 		for (AlertifyWindow w : windows) {
-			newY -= w.getHeight() + 10; // 10px spacing
+			newY -= w.getActualHeight() + 10; // 10px spacing
 			if (w.getY() != newY) {
 				moveWindow(w, newY);
 			}

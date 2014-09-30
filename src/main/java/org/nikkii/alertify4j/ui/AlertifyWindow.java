@@ -23,6 +23,9 @@ import java.util.concurrent.ScheduledFuture;
  */
 public class AlertifyWindow extends JWindow {
 
+	private int actualWidth;
+	private int actualHeight;
+
 	/**
 	 * Flag for whether we're 'hidden'.
 	 */
@@ -59,8 +62,8 @@ public class AlertifyWindow extends JWindow {
 
 		Dimension contentSize = content.getPreferredSize();
 
-		int actualWidth = Math.max(contentSize.width, 300);
-		int actualHeight = Math.max(contentSize.height, 64);
+		actualWidth = Math.max(contentSize.width, 300);
+		actualHeight = Math.max(contentSize.height, 64);
 
 		setAlwaysOnTop(true);
 		setPreferredSize(new Dimension(actualWidth, actualHeight));
@@ -101,5 +104,14 @@ public class AlertifyWindow extends JWindow {
 	 */
 	public void setCloseFuture(ScheduledFuture<?> closeFuture) {
 		this.closeFuture = closeFuture;
+	}
+
+
+	public int getActualWidth() {
+		return actualWidth;
+	}
+
+	public int getActualHeight() {
+		return actualHeight;
 	}
 }

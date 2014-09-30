@@ -30,3 +30,7 @@ Example with callback:
 			// Callback code
 		})
 	.build());
+
+What the result looks like
+========
+![Example](http://i.imgur.com/TM5PjL6.png)
