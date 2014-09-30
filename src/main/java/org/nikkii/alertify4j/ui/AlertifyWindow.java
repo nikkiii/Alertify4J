@@ -11,7 +11,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 import java.util.concurrent.ScheduledFuture;
@@ -23,7 +22,14 @@ import java.util.concurrent.ScheduledFuture;
  */
 public class AlertifyWindow extends JWindow {
 
+	/**
+	 * The real window width.
+	 */
 	private int actualWidth;
+
+	/**
+	 * The real window height.
+	 */
 	private int actualHeight;
 
 	/**
@@ -107,10 +113,20 @@ public class AlertifyWindow extends JWindow {
 	}
 
 
+	/**
+	 * Get the actual window width (bypass Component.getWidth()).
+	 *
+	 * @return The window width.
+	 */
 	public int getActualWidth() {
 		return actualWidth;
 	}
 
+	/**
+	 * Get the actual window height (bypass Component.getHeight()).
+	 *
+	 * @return The window height.
+	 */
 	public int getActualHeight() {
 		return actualHeight;
 	}
