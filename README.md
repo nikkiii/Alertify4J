@@ -8,7 +8,7 @@ The name is temporary, but originates since the alert style was loosely based of
 Building
 ========
 
-Requires [Universal Tween Engine](nikkiii/universal-tween-engine) and Java 1.8 (Lambdas). Use either IntelliJ or Eclipse to build, unless you setup a local repository for universal-tween-engine's jar.
+Requires [Universal Tween Engine](https://github.com/nikkiii/universal-tween-engine) and Java 1.8 (Lambdas). Use either IntelliJ or Eclipse to build, unless you setup a local repository for universal-tween-engine's jar.
 
 Example
 ========
