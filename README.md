@@ -1,7 +1,7 @@
 Alertify4J
 =======
 
-Better notifications and alerts for Java applications.
+Better notifications and alerts for Java applications. This code is very messy and could be done way better, but this is just the first version.
 
 The name is temporary, but originates since the alert style was loosely based off alertify.js.
 
