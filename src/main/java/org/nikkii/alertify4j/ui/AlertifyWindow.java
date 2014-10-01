@@ -1,5 +1,6 @@
 package org.nikkii.alertify4j.ui;
 
+import com.sun.awt.AWTUtilities;
 import org.nikkii.alertify4j.AlertifyColorPair;
 import org.nikkii.alertify4j.AlertifyType;
 import org.nikkii.alertify4j.themes.AlertifyTheme;
@@ -11,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Shape;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 import java.util.concurrent.ScheduledFuture;
@@ -73,8 +75,8 @@ public class AlertifyWindow extends JWindow {
 
 		setAlwaysOnTop(true);
 		setPreferredSize(new Dimension(actualWidth, actualHeight));
-		setShape(new RoundRectangle2D.Double(0, 0, actualWidth, actualHeight, 4, 4));
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		AWTUtilities.setWindowShape(this, new RoundRectangle2D.Double(0, 0, actualWidth, actualHeight, 4, 4));
 	}
 
 	/**
