@@ -1,9 +1,9 @@
 package org.nikkii.alertify4j;
 
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
+import org.nikkii.alertify4j.util.Optional;
 
 import javax.swing.JLabel;
-import java.util.Optional;
 
 /**
  * An alert config.

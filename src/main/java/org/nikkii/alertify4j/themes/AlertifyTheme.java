@@ -16,7 +16,7 @@ public abstract class AlertifyTheme {
 	/**
 	 * The color map.
 	 */
-	private Map<AlertifyType, AlertifyColorPair> colorsMap = new HashMap<>();
+	private Map<AlertifyType, AlertifyColorPair> colorsMap = new HashMap<AlertifyType, AlertifyColorPair>();
 
 	/**
 	 * Put a color type into the map.

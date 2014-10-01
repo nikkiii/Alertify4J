@@ -1,5 +1,6 @@
 package org.nikkii.alertify4j;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
@@ -76,17 +77,17 @@ public class Alertify {
 	/**
 	 * The list of visible windows.
 	 */
-	private final List<AlertifyWindow> windows = new LinkedList<>();
+	private final List<AlertifyWindow> windows = new LinkedList<AlertifyWindow>();
 
 	/**
 	 * The list of windows being removed. This is used to make sure no windows are moved while we're removing them.
 	 */
-	private final List<AlertifyWindow> remove = new LinkedList<>();
+	private final List<AlertifyWindow> remove = new LinkedList<AlertifyWindow>();
 
 	/**
 	 * The queue of windows which won't fit on screen until we close a couple.
 	 */
-	private final Queue<AlertifyConfig> windowQueue = new LinkedList<>();
+	private final Queue<AlertifyConfig> windowQueue = new LinkedList<AlertifyConfig>();
 
 	/**
 	 * The TweenManager handling animations
@@ -98,13 +99,16 @@ public class Alertify {
 	 * TODO time the update call and adjust accordingly.
 	 */
 	private Alertify() {
-		new Thread(() -> {
-			while (true) {
-				manager.update(0.01f);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					manager.update(0.01f);
 
-				try {
-					Thread.sleep(10);
-				} catch (Exception e) {
+					try {
+						Thread.sleep(10);
+					} catch (Exception e) {
+					}
 				}
 			}
 		}).start();
@@ -157,9 +161,16 @@ public class Alertify {
 
 			windows.add(window);
 
-			showWindow(window, () -> {
-				if (config.shouldAutoClose()) {
-					window.setCloseFuture(scheduler.schedule(() -> hideWindow(window), config.getCloseDelay(), TimeUnit.MILLISECONDS));
+			showWindow(window, new Runnable() {
+				public void run() {
+					if (config.shouldAutoClose()) {
+						window.setCloseFuture(scheduler.schedule(new Runnable() {
+							@Override
+							public void run() {
+								hideWindow(window);
+							}
+						}, config.getCloseDelay(), TimeUnit.MILLISECONDS));
+					}
 				}
 			});
 		}
@@ -172,21 +183,24 @@ public class Alertify {
 	 * @param window The window to show.
 	 * @param callback The callback to run after the window is shown.
 	 */
-	private void showWindow(AlertifyWindow window, Runnable callback) {
-		Rectangle screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+	private void showWindow(final AlertifyWindow window, final Runnable callback) {
+		final Rectangle screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
 		Tween
 			.to(window, ComponentAccessor.POSITION_X, 0.5f)
-			.setCallback((event, tween) -> {
-				if (event == TweenCallback.START) // Show it when this starts
-					window.setVisible(true);
-				else if (event == TweenCallback.STEP) { // Attempt to hide the window off-screen
-					int width = screen.width - 10 - window.getX(); // 10 extra for the spacing.
-					if (width <= window.getActualWidth() + 1) {
-						window.setSize(width, window.getActualHeight());
-					}
-				} else if (event == TweenCallback.COMPLETE)
-					callback.run();
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int event, BaseTween<?> baseTween) {
+					if (event == TweenCallback.START) // Show it when this starts
+						window.setVisible(true);
+					else if (event == TweenCallback.STEP) { // Attempt to hide the window off-screen
+						int width = screen.width - 10 - window.getX(); // 10 extra for the spacing.
+						if (width <= window.getActualWidth() + 1) {
+							window.setSize(width, window.getActualHeight());
+						}
+					} else if (event == TweenCallback.COMPLETE)
+						callback.run();
+				}
 			})
 			.setCallbackTriggers(TweenCallback.START | TweenCallback.STEP)
 			.ease(Back.OUT)
@@ -213,24 +227,27 @@ public class Alertify {
 	 *
 	 * @param window The window to hide.
 	 */
-	private void hideWindow(AlertifyWindow window) {
+	private void hideWindow(final AlertifyWindow window) {
 		if (window.isHidden()) {
 			return;
 		}
 
 		window.hideAlert();
 
-		Rectangle screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+		final Rectangle screen = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
 		remove.add(window);
 		Tween.to(window, ComponentAccessor.POSITION_X, 0.5f)
 			.ease(Back.IN)
 			.target(screen.width)
-			.setCallback((event, tween) -> {
-				if (event == TweenCallback.COMPLETE)
-					removeWindow(window);
-				else if (event == TweenCallback.STEP)
-					window.setSize(screen.width - window.getX(), window.getActualHeight());
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int event, BaseTween<?> tween) {
+					if (event == TweenCallback.COMPLETE)
+						removeWindow(window);
+					else if (event == TweenCallback.STEP)
+						window.setSize(screen.width - window.getX(), window.getActualHeight());
+				}
 			})
 			.setCallbackTriggers(TweenCallback.COMPLETE | TweenCallback.STEP)
 			.start(manager);
