@@ -1,5 +1,7 @@
 package org.nikkii.alertify4j;
 
+import java.awt.Font;
+
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
 import org.nikkii.alertify4j.util.Optional;
 
@@ -16,6 +18,10 @@ public class AlertifyConfig {
 	 * The alert type.
 	 */
 	private final AlertifyType type;
+	/**
+	 * The alert font.
+	 */
+	private final Font font;
 
 	/**
 	 * The alert label.
@@ -39,11 +45,12 @@ public class AlertifyConfig {
 	 * @param closeDelay The close delay.
 	 * @param callback The callback.
 	 */
-	public AlertifyConfig(AlertifyType type, JLabel label, long closeDelay, AlertifyWindowClick callback) {
+	public AlertifyConfig(AlertifyType type, JLabel label, long closeDelay, AlertifyWindowClick callback, Font font) {
 		this.type = type;
 		this.label = label;
 		this.closeDelay = closeDelay;
 		this.callback = Optional.ofNullable(callback);
+		this.font = font;
 	}
 
 	/**
@@ -53,6 +60,15 @@ public class AlertifyConfig {
 	 */
 	public AlertifyType getType() {
 		return type;
+	}
+	
+	/**
+	 * Get the alert font.
+	 *
+	 * @return The alert font.
+	 */
+	public Font getFont() {
+		return font;
 	}
 
 	/**

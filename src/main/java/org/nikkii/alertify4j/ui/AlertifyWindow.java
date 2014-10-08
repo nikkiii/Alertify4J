@@ -3,6 +3,7 @@ package org.nikkii.alertify4j.ui;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 import java.util.concurrent.ScheduledFuture;
@@ -57,14 +58,13 @@ public class AlertifyWindow extends JWindow {
 	 * @param type The alert type.
 	 * @param label The alert label.
 	 */
-	public AlertifyWindow(AlertifyTheme theme, AlertifyType type, JLabel label) {
+	public AlertifyWindow(AlertifyTheme theme, AlertifyType type, JLabel label, Font font) {
 		AlertifyColorPair colors = theme.getColors(type);
 
 		if (colors == null) {
 			throw new IllegalArgumentException("Theme does not have support for " + type);
 		}
-
-		label.setFont(label.getFont().equals(theme.getFont()) ? theme.getFont() : label.getFont());
+		label.setFont(font == null ? theme.getFont() : font); //checking null state to see which font to use
 		label.setForeground(colors.getForeground());
 
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));

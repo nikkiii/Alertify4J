@@ -51,4 +51,5 @@ public abstract class AlertifyTheme {
 	 * @return The font.
 	 */
 	public abstract Font getFont();
+	
 }

@@ -28,6 +28,11 @@ public class AlertifyBuilder {
 	 * The close delay.
 	 */
 	private long closeDelay = 0;
+	
+	/**
+	 * A custom font override is assigned here.
+	 */
+	private Font font = null;
 
 	/**
 	 * The window callback.
@@ -68,13 +73,13 @@ public class AlertifyBuilder {
 	}
 	
 	/**
-	 * Set the alert font.
+	 * Set the alert font which will override the main themes.
 	 *
 	 * @param font The alert font.
 	 * @return The builder instance, for chaining.
 	 */
 	public AlertifyBuilder font(Font font) {
-		label.setFont(font);
+		this.font = font;
 		return this;
 	}
 
@@ -117,6 +122,6 @@ public class AlertifyBuilder {
 	 * @return The {@link AlertifyConfig}.
 	 */
 	public AlertifyConfig build() {
-		return new AlertifyConfig(type, label, closeDelay, callback);
+		return new AlertifyConfig(type, label, closeDelay, callback, font);
 	}
 }
