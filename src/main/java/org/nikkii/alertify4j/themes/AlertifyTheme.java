@@ -1,11 +1,12 @@
 package org.nikkii.alertify4j.themes;
 
+import org.nikkii.alertify4j.AlertifyColorPair;
+import org.nikkii.alertify4j.AlertifyType;
+
+import javax.swing.JPanel;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.nikkii.alertify4j.AlertifyColorPair;
-import org.nikkii.alertify4j.AlertifyType;
 
 /**
  * A Theme wrapper for customizing the Alertify look.
@@ -51,5 +52,16 @@ public abstract class AlertifyTheme {
 	 * @return The font.
 	 */
 	public abstract Font getFont();
+
+	/**
+	 * Called to configure the extra window properties besides colors.
+	 *
+	 * Note: The window itself has no style properties, only the content panel.
+	 *
+	 * @param content The content panel to configure.
+	 */
+	public void configure(JPanel content) {
+
+	}
 	
 }

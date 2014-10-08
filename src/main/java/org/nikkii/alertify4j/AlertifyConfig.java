@@ -1,11 +1,10 @@
 package org.nikkii.alertify4j;
 
-import java.awt.Font;
-
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
 import org.nikkii.alertify4j.util.Optional;
 
 import javax.swing.JLabel;
+import java.awt.Font;
 
 /**
  * An alert config.

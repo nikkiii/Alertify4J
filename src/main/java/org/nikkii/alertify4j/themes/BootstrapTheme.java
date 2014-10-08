@@ -3,6 +3,8 @@ package org.nikkii.alertify4j.themes;
 import org.nikkii.alertify4j.AlertifyColorPair;
 import org.nikkii.alertify4j.AlertifyType;
 
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -51,6 +53,11 @@ public class BootstrapTheme extends AlertifyTheme {
 		initColor(AlertifyType.WARNING, WARNING_COLORS);
 		initColor(AlertifyType.ERROR, ERROR_COLOR);
 		initColor(AlertifyType.SUCCESS, SUCCESS_COLOR);
+	}
+
+	@Override
+	public void configure(JPanel content) {
+		content.setBorder(new EmptyBorder(15, 30, 15, 30));
 	}
 
 	@Override

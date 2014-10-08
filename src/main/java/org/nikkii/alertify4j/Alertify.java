@@ -108,6 +108,7 @@ public class Alertify {
 					try {
 						Thread.sleep(10);
 					} catch (Exception e) {
+						break;
 					}
 				}
 			}
@@ -135,7 +136,7 @@ public class Alertify {
 				windowQueue.add(config);
 				return this;
 			}
-			final AlertifyWindow window = new AlertifyWindow(theme, config.getType(), config.getLabel(), config.getFont());
+			final AlertifyWindow window = new AlertifyWindow(theme, config);
 
 			baseY -= window.getPreferredSize().height + 10;
 

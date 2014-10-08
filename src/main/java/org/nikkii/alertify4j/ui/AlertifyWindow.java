@@ -1,5 +1,14 @@
 package org.nikkii.alertify4j.ui;
 
+import com.sun.awt.AWTUtilities;
+import org.nikkii.alertify4j.AlertifyColorPair;
+import org.nikkii.alertify4j.AlertifyConfig;
+import org.nikkii.alertify4j.themes.AlertifyTheme;
+import org.nikkii.alertify4j.util.Optional;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JWindow;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -7,17 +16,6 @@ import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
 import java.util.concurrent.ScheduledFuture;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JWindow;
-import javax.swing.border.EmptyBorder;
-
-import org.nikkii.alertify4j.AlertifyColorPair;
-import org.nikkii.alertify4j.AlertifyType;
-import org.nikkii.alertify4j.themes.AlertifyTheme;
-
-import com.sun.awt.AWTUtilities;
 
 /**
  * The alert bubble window.
@@ -55,21 +53,28 @@ public class AlertifyWindow extends JWindow {
 	 * Construct a new window.
 	 *
 	 * @param theme The theme to construct from.
-	 * @param type The alert type.
-	 * @param label The alert label.
+	 * @param config The alert config.
 	 */
-	public AlertifyWindow(AlertifyTheme theme, AlertifyType type, JLabel label, Font font) {
-		AlertifyColorPair colors = theme.getColors(type);
+	public AlertifyWindow(AlertifyTheme theme, AlertifyConfig config) {
+		AlertifyColorPair colors = theme.getColors(config.getType());
 
 		if (colors == null) {
-			throw new IllegalArgumentException("Theme does not have support for " + type);
+			throw new IllegalArgumentException("Theme does not have support for " + config.getType());
 		}
-		label.setFont(font == null ? theme.getFont() : font); //checking null state to see which font to use
+
+		JLabel label = config.getLabel();
+
+		Optional<Font> font = Optional.ofNullable(config.getFont());
+
+		label.setFont(font.isPresent() ? font.get() : theme.getFont()); //checking null state to see which font to use
 		label.setForeground(colors.getForeground());
 
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
 		content.setBackground(colors.getBackground());
-		content.setBorder(new EmptyBorder(15, 30, 15, 30));
+
+		// Configure the unique theme properties
+		theme.configure(content);
+
 		content.add(label);
 
 		add(content);
