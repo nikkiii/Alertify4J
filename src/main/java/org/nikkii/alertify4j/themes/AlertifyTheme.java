@@ -1,12 +1,11 @@
 package org.nikkii.alertify4j.themes;
 
-import org.nikkii.alertify4j.AlertifyColorPair;
-import org.nikkii.alertify4j.AlertifyType;
-
-import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.nikkii.alertify4j.AlertifyColorPair;
+import org.nikkii.alertify4j.AlertifyType;
 
 /**
  * A Theme wrapper for customizing the Alertify look.

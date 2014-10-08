@@ -1,9 +1,8 @@
 package org.nikkii.alertify4j.tween;
 
-import aurelienribon.tweenengine.TweenAccessor;
-
-import javax.swing.JWindow;
 import java.awt.Component;
+
+import aurelienribon.tweenengine.TweenAccessor;
 
 /**
  * A {@link TweenAccessor} for Components, with added X and Y types.

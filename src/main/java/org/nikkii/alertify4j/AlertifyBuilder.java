@@ -1,5 +1,7 @@
 package org.nikkii.alertify4j;
 
+import java.awt.Font;
+
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
 
 import javax.swing.Icon;
@@ -62,6 +64,17 @@ public class AlertifyBuilder {
 	 */
 	public AlertifyBuilder icon(Icon icon) {
 		label.setIcon(icon);
+		return this;
+	}
+	
+	/**
+	 * Set the alert font.
+	 *
+	 * @param font The alert font.
+	 * @return The builder instance, for chaining.
+	 */
+	public AlertifyBuilder font(Font font) {
+		label.setFont(font);
 		return this;
 	}
 
