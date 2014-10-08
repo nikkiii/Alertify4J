@@ -1,5 +1,7 @@
 package org.nikkii.alertify4j;
 
+import java.awt.Font;
+
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
 
 import javax.swing.Icon;
@@ -26,6 +28,11 @@ public class AlertifyBuilder {
 	 * The close delay.
 	 */
 	private long closeDelay = 0;
+	
+	/**
+	 * A custom font override is assigned here.
+	 */
+	private Font font = null;
 
 	/**
 	 * The window callback.
@@ -62,6 +69,17 @@ public class AlertifyBuilder {
 	 */
 	public AlertifyBuilder icon(Icon icon) {
 		label.setIcon(icon);
+		return this;
+	}
+	
+	/**
+	 * Set the alert font which will override the main themes.
+	 *
+	 * @param font The alert font.
+	 * @return The builder instance, for chaining.
+	 */
+	public AlertifyBuilder font(Font font) {
+		this.font = font;
 		return this;
 	}
 
@@ -104,6 +122,6 @@ public class AlertifyBuilder {
 	 * @return The {@link AlertifyConfig}.
 	 */
 	public AlertifyConfig build() {
-		return new AlertifyConfig(type, label, closeDelay, callback);
+		return new AlertifyConfig(type, label, closeDelay, callback, font);
 	}
 }

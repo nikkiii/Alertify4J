@@ -1,21 +1,23 @@
 package org.nikkii.alertify4j.ui;
 
-import com.sun.awt.AWTUtilities;
-import org.nikkii.alertify4j.AlertifyColorPair;
-import org.nikkii.alertify4j.AlertifyType;
-import org.nikkii.alertify4j.themes.AlertifyTheme;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseListener;
+import java.awt.geom.RoundRectangle2D;
+import java.util.concurrent.ScheduledFuture;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JWindow;
 import javax.swing.border.EmptyBorder;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Shape;
-import java.awt.event.MouseListener;
-import java.awt.geom.RoundRectangle2D;
-import java.util.concurrent.ScheduledFuture;
+
+import org.nikkii.alertify4j.AlertifyColorPair;
+import org.nikkii.alertify4j.AlertifyType;
+import org.nikkii.alertify4j.themes.AlertifyTheme;
+
+import com.sun.awt.AWTUtilities;
 
 /**
  * The alert bubble window.
@@ -23,6 +25,11 @@ import java.util.concurrent.ScheduledFuture;
  * @author Nikki
  */
 public class AlertifyWindow extends JWindow {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The real window width.
@@ -51,14 +58,13 @@ public class AlertifyWindow extends JWindow {
 	 * @param type The alert type.
 	 * @param label The alert label.
 	 */
-	public AlertifyWindow(AlertifyTheme theme, AlertifyType type, JLabel label) {
+	public AlertifyWindow(AlertifyTheme theme, AlertifyType type, JLabel label, Font font) {
 		AlertifyColorPair colors = theme.getColors(type);
 
 		if (colors == null) {
 			throw new IllegalArgumentException("Theme does not have support for " + type);
 		}
-
-		label.setFont(theme.getFont());
+		label.setFont(font == null ? theme.getFont() : font); //checking null state to see which font to use
 		label.setForeground(colors.getForeground());
 
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));
