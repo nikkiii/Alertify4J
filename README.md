@@ -8,7 +8,23 @@ The name is temporary, but originates since the alert style was loosely based of
 Building
 ========
 
-Requires [Universal Tween Engine](https://github.com/nikkiii/universal-tween-engine) and Java 1.8 (Lambdas). Use either IntelliJ or Eclipse to build, unless you setup a local repository for universal-tween-engine's jar.
+Add the nikkii.us repository to your maven pom.xml:
+
+	<repositories>
+        <repository>
+            <id>nikkiius</id>
+            <name>Nikkii.us Repository</name>
+            <url>http://maven.nikkii.us/maven2</url>
+        </repository>
+    </repositories>
+    
+And define Alertify4J as a dependency:
+
+	<dependency>
+        <groupId>us.nikkii.alertify4j</groupId>
+        <artifactId>alertify4j</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
 
 Example
 ========

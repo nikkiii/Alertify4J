@@ -4,9 +4,32 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>us.nikkii</groupId>
+    <groupId>us.nikkii.alertify4j</groupId>
     <artifactId>alertify4j</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+            <id>nikkiius</id>
+            <name>Nikkii.us Repository</name>
+            <url>http://maven.nikkii.us/maven2</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>nikkiius</id>
+            <url>ftp://maven.nikkii.us/maven2</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>aurelienribbon.tweenengine</groupId>
+            <artifactId>tween-engine-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -20,5 +43,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <extensions>
+            <!-- Enabling the use of FTP -->
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>1.0-beta-6</version>
+            </extension>
+        </extensions>
     </build>
 </project>
